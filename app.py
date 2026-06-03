@@ -40,19 +40,47 @@ def home():
       response = client.responses.create(
          model="gpt-5",
          input=f"""
-      You are a fintech implementiaton analyst,
+      You are a fintech implementation analyst.
 
-      Analyze the meeting notes and identify:
+      Analyze the meeting notes and provide the following sections.
 
-      - Risks
-      - Blockers
-      - Dependencies
-      - Action Items
+      Executive Summary
+      
+      Risks
+      
+      Blockers
+      
+      Dependencies
+      
+      Action Items
 
+      Format your response exactly as follows:
+
+      Executive Summary:
+      <summary>
+
+      Risks:
+      - risk 1
+      - risk 2
+
+      Blockers:
+      - blocker 1
+      - blocker 2
+
+      Dependencies:
+      - dependency 1
+      - dependency 2
+
+      Action Items:
+      - owner: action item 1
+      - owner: action item 2
+
+      If a category has no items, write "None identified."
+      
       Meeting Notes:
 
       {meeting_notes}
-      """
+     """
    )
 
       analysis = response.output_text
