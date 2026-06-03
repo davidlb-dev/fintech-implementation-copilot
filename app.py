@@ -38,8 +38,21 @@ def home():
       print("Meeting notes length:", len(meeting_notes))
 
       response = client.responses.create(
-      model="gpt-5",
-      input=meeting_notes
+         model="gpt-5",
+         input=f"""
+      You are a fintech implementiaton analyst,
+
+      Analyze the meeting notes and identify:
+
+      - Risks
+      - Blockers
+      - Dependencies
+      - Action Items
+
+      Meeting Notes:
+
+      {meeting_notes}
+      """
    )
 
       analysis = response.output_text
