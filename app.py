@@ -99,7 +99,8 @@ def home():
    return render_template(
       "index.html",
       meeting_notes=meeting_notes,
-      analysis=analysis
+      analysis=analysis,
+      current_year=datetime.now().year
    )
 
 if __name__ == "__main__":
