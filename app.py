@@ -27,6 +27,8 @@ def home():
    meeting_notes = ""
    
    analysis = ""
+
+   status = ""
    
    if request.method == "POST":
 
@@ -64,9 +66,6 @@ def home():
 
       Format your response exactly as follows:
 
-      Overall Status:
-      <status>
-
       Executive Summary:
       <summary>
 
@@ -96,13 +95,23 @@ def home():
 
       analysis = response.output_text
 
+      status = ""
+
+      if "ON TRACK" in analysis:
+         status = "ON TRACK"
+      elif "AT RISK" in analysis:
+         status = "AT RISK"
+      elif "DELAYED" in analysis:
+         status = "DELAYED"
+
    return render_template(
       "index.html",
       meeting_notes=meeting_notes,
       analysis=analysis,
+      status=status,
       current_year=datetime.now().year
    )
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 5001))
     app.run(host="0.0.0.0", port=port)
