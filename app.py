@@ -44,6 +44,8 @@ def home():
 
       Analyze the meeting notes and provide the following sections.
 
+      Overall Status
+
       Executive Summary
       
       Risks
@@ -54,7 +56,16 @@ def home():
       
       Action Items
 
+      Determine Overall Status using these rules:
+
+      - ON TRACK: No significant risks to timeline or delivery.
+      - AT RISK: Risks or dependencies may impact timeline or delivery.
+      - DELAYED: A blocker or issue has already caused a schedule delay.
+
       Format your response exactly as follows:
+
+      Overall Status:
+      <status>
 
       Executive Summary:
       <summary>
