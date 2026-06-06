@@ -85,6 +85,8 @@ def home():
       - owner: action item 1
       - owner: action item 2
 
+      Do not repeat the project status in the Executive Summary. The Overall Status will be displayed separately by the application.
+      
       If a category has no items, write "None identified."
       
       Meeting Notes:
