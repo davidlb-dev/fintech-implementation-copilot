@@ -4,6 +4,14 @@
 
 ---
 
+## Who This Is For
+
+- Implementation Managers
+- Program Managers
+- Client Delivery Leads at Financial Services Firms
+
+---
+
 ## What It Does
 
 The AI Fintech Implementation Copilot analyzes implementation meeting notes and automatically generates structured project updates for implementation teams, program managers, client delivery teams, and executives.
@@ -29,13 +37,11 @@ https://fintech-implementation-copilot-production.up.railway.app/
 
 ## Why It Exists
 
-This project was created as an exploration of how AI can support fintech implementations by transforming unstructured meeting discussions into actionable project intelligence.
+After managing fintech implementations at KPMG and Accenture, I spent more time 
+writing status updates than solving problems.
 
-Fintech implementations generate large volumes of meeting notes, action items, dependencies, and stakeholder updates.
-
-Project managers and implementation teams often spend significant time manually reviewing notes and creating status reports.
-
-This tool automates the first-pass analysis layer by transforming raw meeting notes into structured implementation intelligence.
+This tool automates the first-pass analysis layer - transforming unstructured 
+meeting notes into executive summaries, risks, blockers, dependencies, and action items.
 
 Built by Bond River Partners.
 
@@ -84,6 +90,79 @@ The application has three layers:
    * Action Items
 4. Results are displayed in the browser.
 
+## Sample Input
+
+```text
+Attendees: PMO, Client Operations, Engineering, Vendor Team
+
+Engineering completed ACH payment workflow testing and reported no critical defects.
+
+Client Operations confirmed account onboarding procedures are complete.
+
+The team identified one risk related to delayed SSO configuration from the client's IT department.
+
+Vendor representatives indicated production readiness testing cannot begin until SSO is finalized.
+
+Current go-live date remains July 1, but delays to SSO could impact the schedule.
+
+Action Items:
+- Client IT to complete SSO setup by Friday.
+- Vendor team to schedule production readiness review.
+- PMO to track SSO dependency.
+```
+
+## Sample Output
+
+```text
+Overall Status:
+AT RISK
+
+Executive Summary:
+Implementation remains on track for the July 1 go-live date, but delayed SSO configuration introduces schedule risk. Production readiness testing cannot begin until SSO is completed.
+
+Risks:
+- Delayed SSO configuration may impact go-live timeline
+
+Blockers:
+- Production readiness testing cannot begin until SSO is completed
+
+Dependencies:
+- Client IT completion of SSO configuration
+- Production readiness testing
+
+Action Items:
+- Client IT: Complete SSO setup by Friday
+- Vendor Team: Schedule production readiness review
+- PMO: Track SSO dependency
+```
+
+## Architecture
+
+```text
++-------------------+
+| Meeting Notes     |
++-------------------+
+          |
+          v
++-------------------+
+| GPT-5 Analysis    |
++-------------------+
+          |
+          v
++-------------------+
+| Status Assessment |
+| Risks             |
+| Blockers          |
+| Dependencies      |
+| Action Items      |
++-------------------+
+          |
+          v
++-------------------+
+| Browser UI        |
++-------------------+
+```
+
 ---
 
 ## How To Run It
@@ -98,11 +177,6 @@ The application has three layers:
 ```bash
 git clone https://github.com/davidlb-dev/fintech-implementation-copilot.git
 cd fintech-implementation-copilot
-
-python3 -m venv venv
-source venv/bin/activate
-
-pip install -r requirements.txt
 
 python3 -m venv venv
 source venv/bin/activate
