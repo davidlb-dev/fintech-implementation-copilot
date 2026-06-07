@@ -66,6 +66,9 @@ def home():
 
       Format your response exactly as follows:
 
+      Overall Status:
+      <ON TRACK, AT RISK, or DELAYED>
+
       Executive Summary:
       <summary>
 
@@ -99,12 +102,19 @@ def home():
 
       status = ""
 
-      if "ON TRACK" in analysis:
-         status = "ON TRACK"
-      elif "AT RISK" in analysis:
-         status = "AT RISK"
-      elif "DELAYED" in analysis:
-         status = "DELAYED"
+      if "Overall Status:" in analysis:
+
+         status = (
+            analysis.split("Overall Status:")[1]
+            .strip()
+            .split("\n")[0]
+            .strip()
+         )
+
+         analysis = analysis.replace(
+            f"Overall Status:\n{status}\n\n",
+            ""
+         )
 
    return render_template(
       "index.html",
