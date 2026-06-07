@@ -87,7 +87,6 @@
 
     <form method="POST">
 
-
         <textarea
             name="meeting_notes"
             rows="10"
@@ -103,6 +102,8 @@
 
     </form>
     
+{% if meeting_notes %}
+
     <h2>Submitted Notes</h2>
 
     <p>{{ meeting_notes }}</p>
@@ -124,6 +125,8 @@
     {% endif %}
     
     <pre>{{ analysis }}</pre>
+
+{% endif %}
 
     <hr>
 
