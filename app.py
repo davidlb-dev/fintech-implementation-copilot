@@ -100,6 +100,10 @@ def home():
 
       analysis = response.output_text
 
+      print("\n=== ANALYSIS ===")
+      print(analysis)
+      print("=== END ANALYSIS ===\n")
+
       status = ""
 
       if "Overall Status:" in analysis:
@@ -116,11 +120,65 @@ def home():
             ""
          )
 
+   executive_summary = ""
+
+   if "Executive Summary:" in analysis:
+
+      executive_summary = (
+         analysis.split("Executive Summary:")[1]
+         .split("Risks:")[0]
+         .strip()
+      )
+
+   risks = ""
+
+   if "Risks:" in analysis:
+
+      risks = (
+         analysis.split("Risks:")[1]
+         .split("Blockers:")[0]
+         .strip()
+      )
+
+   blockers = ""
+
+   if "Blockers:" in analysis:
+
+      blockers = (
+         analysis.split("Blockers:")[1]
+         .split("Dependencies:")[0]
+         .strip()
+      )
+
+   dependencies = ""
+
+   if "Dependencies:" in analysis:
+
+      dependencies = (
+         analysis.split("Dependencies:")[1]
+         .split("Action Items:")[0]
+         .strip()
+      )
+
+   action_items = ""
+
+   if "Action Items:" in analysis:
+
+      action_items = (
+         analysis.split("Action Items:")[1]
+         .strip()
+      )
+
    return render_template(
       "index.html",
       meeting_notes=meeting_notes,
       analysis=analysis,
       status=status,
+      executive_summary=executive_summary,
+      risks=risks,
+      blockers=blockers,
+      dependencies=dependencies,
+      action_items = action_items,
       current_year=datetime.now().year
    )
 
