@@ -4,6 +4,7 @@
     <title>AI Fintech Implementation Copilot</title>
 
     <style>
+              
         body {
             font-family: Arial, sans-serif;
             max-width: 1000px;
@@ -60,6 +61,14 @@
 
         .intro {
         margin-bottom: 25px;
+        }
+
+        .dashboard-card {
+            border: 1px solid #ccc;
+            background-color: #eef4ff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
         }
 
     </style>
@@ -124,16 +133,20 @@
         </div>
     {% endif %}
     
-    <h3>Executive Summary (Debug)</h3>
+<div class="dashboard-card">
+
+    <h3>Executive Summary</h3>
 
     <pre>{{ executive_summary }}</pre>
+
+</div>
 
     <h3>Risks (Debug)</h3>
 
     <pre>{{ risks }}</pre>
 
     <h3>Blockers (Debug)</h3>
-
+,s
     <pre>{{ blockers }}</pre>
 
     <h3>Dependencies (Debug)</h3>
