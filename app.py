@@ -169,6 +169,9 @@ def home():
          .strip()
       )
 
+   debug_mode = True
+   print("DEBUG MODE =", debug_mode)
+
    return render_template(
       "index.html",
       meeting_notes=meeting_notes,
@@ -178,7 +181,8 @@ def home():
       risks=risks,
       blockers=blockers,
       dependencies=dependencies,
-      action_items = action_items,
+      action_items=action_items,
+      debug_mode=debug_mode,
       current_year=datetime.now().year
    )
 

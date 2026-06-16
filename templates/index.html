@@ -198,7 +198,15 @@
 
 </div>
  
-    <!-- <pre>{{ analysis }}</pre> -->
+{% if debug_mode %}
+
+    <h3>Raw Analysis (Debug)</h3>
+
+    <p>DEBUG MODE IS ON</p>
+
+    <pre>{{ analysis }}</pre>
+
+{% endif %}
 
 {% endif %}
 
