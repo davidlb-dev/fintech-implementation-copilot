@@ -71,6 +71,18 @@
             border-radius: 8px;
         }
 
+        .summary-on-track {
+            background-color: #d4edda;
+        }
+
+        .summary-at-risk {
+            background-color: #fff3cd;
+        }
+
+        .summary-delayed {
+            background-color: #f8d7da;
+        }
+
     </style>
 </head>
 <body>
@@ -132,21 +144,34 @@
             🔴 DELAYED
         </div>
     {% endif %}
-    
-<div class="dashboard-card">
 
-    <h3>Executive Summary</h3>
+{% if executive_summary %}
 
-    <pre>{{ executive_summary }}</pre>
+    {% if status == "ON TRACK" %}
+        <div class="dashboard-card summary-on-track">
+            <h3>Executive Summary</h3>
+            <pre>{{ executive_summary }}</pre>
+        </div>
+    {% elif status == "AT RISK" %}
+        <div class="dashboard-card summary-at-risk">
+            <h3>Executive Summary</h3>
+            <pre>{{ executive_summary }}</pre>
+        </div>
+    {% elif status == "DELAYED" %}
+        <div class="dashboard-card summary-delayed">
+            <h3>Executive Summary</h3>
+            <pre>{{ executive_summary }}</pre>
+        </div>
+    {% endif %} 
+{% endif %} 
 
-</div>
 
     <h3>Risks (Debug)</h3>
 
     <pre>{{ risks }}</pre>
 
     <h3>Blockers (Debug)</h3>
-,s
+
     <pre>{{ blockers }}</pre>
 
     <h3>Dependencies (Debug)</h3>
@@ -166,9 +191,6 @@
     <footer>
         <p>© {{ current_year }} Bond River Partners. All rights reserved.</p>
     </footer>
- <!--    <footer>
-        <p>DEBUG YEAR: {{ current_year }}</p>
-    </footer> -->
 
 <script>
     document.querySelector("form").addEventListener("submit", function() {
@@ -183,3 +205,5 @@
     </script>
 </body>
 </html>
+
+    
