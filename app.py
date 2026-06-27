@@ -1,10 +1,12 @@
 from datetime import datetime
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, session
 import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
 app = Flask(__name__)
+
+app.secret_key = "replace-this-later"
 
 load_dotenv()
 
@@ -22,6 +24,8 @@ print(
 @app.route("/", methods=["GET", "POST"])
 def home():
    
+   debug_mode = True
+
    print(request.method)
 
    meeting_notes = ""
@@ -120,57 +124,77 @@ def home():
             ""
          )
 
-   executive_summary = ""
+      executive_summary = ""
 
-   if "Executive Summary:" in analysis:
+      if "Executive Summary:" in analysis:
 
-      executive_summary = (
-         analysis.split("Executive Summary:")[1]
-         .split("Risks:")[0]
-         .strip()
-      )
+         executive_summary = (
+            analysis.split("Executive Summary:")[1]
+            .split("Risks:")[0]
+            .strip()
+         )
 
-   risks = ""
+      risks = ""
 
-   if "Risks:" in analysis:
+      if "Risks:" in analysis:
 
-      risks = (
-         analysis.split("Risks:")[1]
-         .split("Blockers:")[0]
-         .strip()
-      )
+         risks = (
+            analysis.split("Risks:")[1]
+            .split("Blockers:")[0]
+            .strip()
+         )
 
-   blockers = ""
+      blockers = ""
 
-   if "Blockers:" in analysis:
+      if "Blockers:" in analysis:
 
-      blockers = (
-         analysis.split("Blockers:")[1]
-         .split("Dependencies:")[0]
-         .strip()
-      )
+         blockers = (
+            analysis.split("Blockers:")[1]
+            .split("Dependencies:")[0]
+            .strip()
+         )
 
-   dependencies = ""
+      dependencies = ""
 
-   if "Dependencies:" in analysis:
+      if "Dependencies:" in analysis:
 
-      dependencies = (
-         analysis.split("Dependencies:")[1]
-         .split("Action Items:")[0]
-         .strip()
-      )
+         dependencies = (
+            analysis.split("Dependencies:")[1]
+            .split("Action Items:")[0]
+            .strip()
+         )
 
-   action_items = ""
+      action_items = ""
 
-   if "Action Items:" in analysis:
+      if "Action Items:" in analysis:
 
-      action_items = (
-         analysis.split("Action Items:")[1]
-         .strip()
-      )
+         action_items = (
+            analysis.split("Action Items:")[1]
+            .strip()
+         )
+     
+      print("DEBUG MODE =", debug_mode)
 
-   debug_mode = True
-   print("DEBUG MODE =", debug_mode)
+      session["meeting_notes"] = meeting_notes
+      session["analysis"] = analysis
+      session["status"] = status
+      session["executive_summary"] = executive_summary
+      session["risks"] = risks
+      session["blockers"]= blockers
+      session["dependencies"] = dependencies
+      session["action_items"] = action_items
+
+
+      return redirect(url_for("home"))
+
+   meeting_notes = session.get("meeting_notes", "")
+   analysis = session.get("analysis", "")
+   status = session.get("status", "")
+   executive_summary = session.get("executive_summary", "")
+   risks = session.get("risks", "")
+   blockers = session.get("blockers", "")
+   dependencies = session.get("dependencies", "")
+   action_items = session.get("action_items", "")
 
    return render_template(
       "index.html",
