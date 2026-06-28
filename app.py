@@ -210,6 +210,13 @@ def home():
       current_year=datetime.now().year
    )
 
+@app.route("/new-analysis")
+def new_analysis():
+
+   session.clear()
+
+   return redirect(url_for("home"))
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001))
     app.run(host="0.0.0.0", port=port)

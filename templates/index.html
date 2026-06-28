@@ -83,6 +83,17 @@
             background-color: #f8d7da;
         }
 
+        .analysis-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;            
+        }
+
+        .analysis-header h2 {
+            margin: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -129,7 +140,17 @@
 
     <p>{{ meeting_notes }}</p>
 
+<div class="analysis-header">
+
     <h2>Analysis Results</h2>
+
+    <a href="{{ url_for('new_analysis') }}">
+        <button type="button">
+            Analyze Another Meeting
+        </button>
+    </a>
+
+</div>
 
     {% if status == "ON TRACK" %}
         <div class="status-badge on-track">
